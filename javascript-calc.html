@@ -1,16 +1,75 @@
 <!DOCTYPE html>
 <html>
-  
+<head>
+    <link href="style.css" rel="stylesheet">
+</head>
 <body>
+<div id="container">
+<div id="top"></div>
 
+
+
+<div id="bottom">
+    <div id="numpad">
+        <div class="numButton">7</div>
+        <div class="numButton">8</div>
+        <div class="numButton">9</div>
+        <div class="numButton">4</div>
+        <div class="numButton">5</div>
+        <div class="numButton">6</div>
+        <div class="numButton">1</div>
+        <div class="numButton">2</div>
+        <div class="numButton">3</div>
+        <div class="numButton" id="numButton0">0</div>
+        <div class="numButton">.</div>
+    </div>
+    <div id="side">
+        <div class="operator">/</div>
+        <div class="operator">*</div>
+        <div class="operator">-</div>
+        <div class="operator">+</div>
+        <div class="operator" id="equals">=</div>
+    </div>
+</div>
+
+
+
+</div>
 
 </body>
 
 
 <script>
-
-
-
+function add(number1,number2){
+    console.log("added")
+    return number1 + number2
+}
+function subtract(number1,number2){
+    return number1 - number2
+}
+function multiply(number1,number2){
+    return number1 * number2
+}
+function divide(number1,number2){
+    if(number2 == 0){
+        return "Nice try, NOPE."
+    }
+    return number1 / number2
+}
+function operate(operator,number1,number2){
+    console.log("operate launched   ")
+    if(operator == "+"){
+        console.log("trying adding" )
+        add(number1,number2)
+    } else if(operator == "-"){
+        subtract(number1,number2)
+    } else if(operator == "*"){
+        multiply(number1,number2)
+    } else{
+        divide(number1,number2)
+    }
+}
+console.log(operate("+",1,1))
 </script>
 
 </html>
