@@ -24,10 +24,11 @@
         <button class="numButton" id="decimal" value=".">.</button>
     </div>
     <div id="side">
-        <button class="operator">/</button>
-        <button class="operator">*</button>
-        <button class="operator">-</button>
-        <button class="operator">+</button>
+        <button id="clear">C</button>
+        <button class="operator" value="/">/</button>
+        <button class="operator" value="*">*</button>
+        <button class="operator" value="-">-</button>
+        <button class="operator" value="+">+</button>
         <button id="equals">=</button>
     </div>
 </div>
@@ -42,61 +43,120 @@
 <script>
     let display = document.querySelector('#top')
     let numberButtons = document.querySelectorAll('.numButton');
+    let operatorButtons = document.querySelectorAll('.operator');
+    let equalsButton = document.querySelector("#equals")
+    let clearButton = document.querySelector('#clear')
     let operatorArray = []
     let numberArray = []
     let currentNumber = ''
-function numberPressed(e){
-    if(this.classList.contains("disabled")){
+    let errorTriggered
+
+    function clearField(){
+        operatorArray = []
+        numberArray = []
+        currentNumber = ''
+        errorTriggered = 0
+        updateDisplay(0)
+    }
+    function numberPressed(e){
+        if(this.classList.contains("disabled")){
+            return
+        }
+        console.log(this.value)
+        currentNumber += this.value.toString()
+        updateDisplay(currentNumber)
+        if(this.value === "."){
+            this.classList.add('disabled')
+        }
         return
     }
-    console.log(this.value)
-    currentNumber += this.value.toString()
-    updateDisplay(currentNumber)
-    if(this.value === "."){
-        this.classList.add('disabled')
+    function operatorPressed(e){
+        if(!currentNumber){
+            return
+        }
+        numberArray.push(Number(currentNumber))
+        currentNumber = ''
+        operatorArray.push(this.value)
+        console.log(operatorArray)
+        console.log(numberArray)
     }
-    return
-}
-function add(number1,number2){
-    console.log("added")
-    return number1 + number2
-}
-function subtract(number1,number2){
-    return number1 - number2
-}
-function multiply(number1,number2){
-    return number1 * number2
-}
-function divide(number1,number2){
-    if(number2 == 0){
-        return "Nice try, NOPE."
+    function add(i){
+        operatorArray.splice(i,1)
+        numberArray[i] = numberArray[i] + numberArray[i+1]
+        numberArray.splice(i+1,1)
     }
-    return number1 / number2
-}
-function operate(operator,number1,number2){
-    
-    
-    
-    
-    if(operator == "+"){
-        console.log("trying adding" )
-        add(number1,number2)
-    } else if(operator == "-"){
-        subtract(number1,number2)
-    } else if(operator == "*"){
-        multiply(number1,number2)
-    } else{
-        divide(number1,number2)
+    function subtract(i){
+        operatorArray.splice(i,1)
+        numberArray[i] = numberArray[i] - numberArray[i+1]
+        numberArray.splice(i+1,1)
     }
-}
-function updateDisplay(value){
-    display.textContent = value
-}
-numberButtons.forEach((button) => {
-        button.addEventListener('click', numberPressed)
+    function multiply(i){
+        operatorArray.splice(i,1)
+        numberArray[i] = numberArray[i] * numberArray[i+1]
+        numberArray.splice(i+1,1)
+        console.log(`After Multiplying operators are ${operatorArray}`)
+        console.log(`After Multiplying numbers are ${numberArray}`)
+    }
+    function divide(i){
+        if(numberArray[i+1] == 0){
+            updateDisplay('Haha, nice try. NO.')
+            numberArray = []
+            operatorArray = []
+            errorTriggered = 1
+            
+        }
+        operatorArray.splice(i,1)
+        let interDivision = numberArray[i] / numberArray[i+1]
+        interDivision = (Math.round((interDivision*100))/100)
+        numberArray[i] = interDivision
+        numberArray.splice(i+1,1)
+    }
+    function operate(){
+        if(!currentNumber){
+            return
+        }
+        numberArray.push(Number(currentNumber))
+        currentNumber = ''
+        console.log(operatorArray)
+        console.log(numberArray)
+        for(let i=0; i < operatorArray.length;i++){
+            if(operatorArray[i] == "*"){
+                multiply(i)
+            }
+        }
+        for(let i=0; i<operatorArray.length;i++){
+            if(operatorArray[i] == "/"){
+                divide(i)
+                if(errorTriggered){
+                    return
+                }
+            }
+        }
+        for(let i=0; i < operatorArray.length;i++){
+            if(operatorArray[i] == "+"){
+            add(i)
+        } 
+        }
+        for(let i=0; i<operatorArray.length;i++){
+            if(operatorArray[i] == "-"){
+            subtract(i)
+        }
+        }
+        updateDisplay(numberArray)
+        numberArray = []
+        operatorArray = []
+    }
+    function updateDisplay(value){
+        display.textContent = value
+    }
+    numberButtons.forEach((button) => {
+            button.addEventListener('click', numberPressed)
+        })
+    operatorButtons.forEach((operatorButton) => {
+        operatorButton.addEventListener('click', operatorPressed)
     })
-console.log(operate("+",3,2))
-updateDisplay(89)
+    equalsButton.addEventListener('click', operate)
+    clearButton.addEventListener('click',clearField)
+    updateDisplay('0')
 </script>
-
 </html>

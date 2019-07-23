@@ -36,7 +36,7 @@ body{
     height:400px;
     width:120px;
     display: grid;
-    grid-template-rows: 20% 20% 20% 20% 20%
+    grid-template-rows: 1/6 1/6 1/6 1/6 1/6 1/6;
 }
 #numpad{
     background:green;
@@ -70,9 +70,23 @@ body{
     background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
 }
 .operator{
-    height: 80px;
+    height: 66.666px;
     background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
-    line-height: 80px;
+    line-height: 66.666px;
+    text-align: center;
+    font-size:50px
+}
+#equals{
+    height: 66.666px;
+    background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
+    line-height: 66.666px;
+    text-align: center;
+    font-size:50px
+}
+#clear{
+    height: 66.666px;
+    background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
+    line-height: 66.666px;
     text-align: center;
     font-size:50px
 }
