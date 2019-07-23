@@ -11,24 +11,24 @@
 
 <div id="bottom">
     <div id="numpad">
-        <button class="numButton">7</button>
-        <button class="numButton">8</button>
-        <button class="numButton">9</button>
-        <button class="numButton">4</button>
-        <button class="numButton">5</button>
-        <button class="numButton">6</button>
-        <button class="numButton">1</button>
-        <button class="numButton">2</button>
-        <button class="numButton">3</button>
-        <button class="numButton" id="numButton0">0</button>
-        <button class="numButton">.</button>
+        <button class="numButton" value="7">7</button>
+        <button class="numButton" value="8">8</button>
+        <button class="numButton" value="9">9</button>
+        <button class="numButton" value="4">4</button>
+        <button class="numButton" value="5">5</button>
+        <button class="numButton" value="6">6</button>
+        <button class="numButton" value="1">1</button>
+        <button class="numButton" value="2">2</button>
+        <button class="numButton" value="3">3</button>
+        <button class="numButton" id="numButton0" value="0">0</button>
+        <button class="numButton" id="decimal" value=".">.</button>
     </div>
     <div id="side">
         <button class="operator">/</button>
         <button class="operator">*</button>
         <button class="operator">-</button>
         <button class="operator">+</button>
-        <button class="operator" id="equals">=</button>
+        <button id="equals">=</button>
     </div>
 </div>
 
@@ -40,6 +40,23 @@
 
 
 <script>
+    let display = document.querySelector('#top')
+    let numberButtons = document.querySelectorAll('.numButton');
+    let operatorArray = []
+    let numberArray = []
+    let currentNumber = ''
+function numberPressed(e){
+    if(this.classList.contains("disabled")){
+        return
+    }
+    console.log(this.value)
+    currentNumber += this.value.toString()
+    updateDisplay(currentNumber)
+    if(this.value === "."){
+        this.classList.add('disabled')
+    }
+    return
+}
 function add(number1,number2){
     console.log("added")
     return number1 + number2
@@ -57,7 +74,10 @@ function divide(number1,number2){
     return number1 / number2
 }
 function operate(operator,number1,number2){
-    console.log("operate launched   ")
+    
+    
+    
+    
     if(operator == "+"){
         console.log("trying adding" )
         add(number1,number2)
@@ -69,7 +89,14 @@ function operate(operator,number1,number2){
         divide(number1,number2)
     }
 }
-console.log(operate("+",1,1))
+function updateDisplay(value){
+    display.textContent = value
+}
+numberButtons.forEach((button) => {
+        button.addEventListener('click', numberPressed)
+    })
+console.log(operate("+",3,2))
+updateDisplay(89)
 </script>
 
 </html>
