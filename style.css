@@ -53,6 +53,7 @@ body{
     line-height: 100px;
     text-align: center;
     font-size: 50px;
+    color: rgb(0, 0, 136);
 }
 .deciButton{
     height: 100px;
@@ -74,19 +75,23 @@ body{
     background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
     line-height: 66.666px;
     text-align: center;
-    font-size:50px
+    font-size:50px;
+    color:rgb(167, 0, 0);
 }
 #equals{
     height: 66.666px;
     background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
     line-height: 66.666px;
     text-align: center;
-    font-size:50px
+    font-size:50px;
+    color:rgb(167, 0, 0);
 }
 #clear{
     height: 66.666px;
     background-image: -moz-linear-gradient(top,#a1a1a1,#717171);
     line-height: 66.666px;
     text-align: center;
-    font-size:50px
+    font-size:50px;
+    color:rgb(167, 0, 0);
+
 }
